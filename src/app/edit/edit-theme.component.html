@@ -1,0 +1,33 @@
+<div *ngIf="isTheme()">
+  <h1 mat-dialog-title>Themeneingabe</h1>
+  <div mat-dialog-content>
+    <mat-form-field appearance="legacy">
+      <mat-label>Themenbeschreibung</mat-label>
+      <input matInput #input value="{{item?.description}}">
+      <mat-error *ngIf="errorMessage">errorMessage</mat-error>
+    </mat-form-field>
+  </div>
+  
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data" disabled="{{input.value == item?.description}}" (click)="handleUpdateTheme(input.value)">Ändern</button>
+    <button mat-button mat-dialog-close >Zurück</button>
+    <button mat-icon-button [mat-dialog-close]="data" (click)="handelDeleteTheme()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="item == undefined">
+  <h1 mat-dialog-title>Themeneingabe</h1>
+  <div mat-dialog-content>
+    <mat-form-field appearance="legacy">
+      <mat-label>Themenbeschreibung</mat-label>
+      <input matInput #input>
+      <mat-error *ngIf="errorMessage">errorMessage</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data" (click)="handleAddTheme(input.value)">Hinzufügen</button>
+    <button mat-button mat-dialog-close >Zurück</button>
+  </div>
+</div>

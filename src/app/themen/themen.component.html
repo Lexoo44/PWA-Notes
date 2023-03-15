@@ -1,1 +1,9 @@
-<p>themen works!</p>
+<mat-list *ngIf="themes.length > 0">
+    <mat-list-item *ngFor="let theme of themes" style="cursor: pointer;" (click)="openModal(theme)">
+      <div matListItemTitle>{{theme.description}}</div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <button class="button" mat-fab color="primary" aria-label="Add new Node" (click)="openModal(undefined)">
+    <mat-icon>add</mat-icon>
+</button>

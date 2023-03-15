@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NewNoteComponent } from '../new-note/new-note.component';
+import { DbService } from '../shared/dbService';
+import { Note } from '../shared/note';
 
 @Component({
   selector: 'no-notizen',
@@ -6,10 +11,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notizen.component.scss']
 })
 export class NotizenComponent implements OnInit {
+  notes: Note[] = [];
+  sortorder: string = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private dbService: DbService, private route: ActivatedRoute, private router: Router,/* private dialog: MatDialog*/) {
   }
 
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.sortorder = params.sortOrder;
+      this.dbService.getNotesByOrder(this.sortorder).then(notes => this.notes = notes).catch(err => console.log(err));
+    });
+  }
+
+  getNoteDate(note: Note) {
+    return new Date(note.creationDate).toLocaleString();
+  }
+
+  handleNewNote() {
+    this.router.navigate(['/note', 'new']);
+  }
+
+  handleNoteSelected(note: Note) {
+    this.router.navigate(['/note', this.sortorder, note.id]);
+  }
+
+/*
+  async openModal(note: Note | undefined) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data! = note;
+    dialogConfig.width = '95%';
+    dialogConfig.height = '100%';
+    const dialogRef = this.dialog.open(NewNoteComponent, dialogConfig);
+    const data = await dialogRef.afterClosed().toPromise();
+    this.dbService.getAllNotes().then(notes => this.notes = notes).catch(err => console.log(err));
+  }
+  */
 }

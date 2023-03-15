@@ -1,1 +1,16 @@
-<p>notizen works!</p>
+<mat-list *ngIf="notes.length > 0">
+  <mat-list-item *ngFor="let note of notes" style="cursor: pointer;" (click)="handleNoteSelected(note)">
+    <h1 style="font-size: 23px;" matLine>{{note.title}} ({{note.theme?.description}})</h1>
+    <p matLine>Von {{note.user?.username}}</p>
+    <div matLine><span>Erstellt {{getNoteDate(note)}} </span>
+      <span *ngIf="note.modificationDate == 0 || note.modificationDate == undefined">Geändert: Nicht definiert</span>
+      <span *ngIf="note.modificationDate != 0 && note.modificationDate != undefined">Geändert
+        {{note.modificationDate}}</span>
+    </div>
+    <p matLine>{{note.text}}</p>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>
+<button class="button" mat-fab color="primary" aria-label="Add new Node" (click)="handleNewNote()">
+  <mat-icon>add</mat-icon>
+</button>

@@ -1,0 +1,30 @@
+<nav mat-tab-nav-bar backgroundColor="primary" color="accent">
+    <a
+    mat-tab-link
+    routerLink="/title"
+    routerLinkActive
+    #titleTab="routerLinkActive"
+    [active]="titleTab.isActive"
+  >
+    Titel
+  </a>
+  <a
+    mat-tab-link
+    routerLink="/theme"
+    routerLinkActive
+    #themeTab="routerLinkActive"
+    [active]="themeTab.isActive"
+  >
+    Thema
+  </a>
+  <a
+    mat-tab-link
+    routerLink="/date"
+    routerLinkActive
+    #dateTab="routerLinkActive"
+    [active]="dateTab.isActive"
+  >
+    Änderungsdatum
+  </a>
+</nav>
+<router-outlet></router-outlet>
