@@ -23,6 +23,7 @@ import { DbService } from './shared/dbService';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NewNoteComponent } from './new-note/new-note.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     MatInputModule,
     BrowserModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

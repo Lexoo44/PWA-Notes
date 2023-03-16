@@ -23,7 +23,6 @@ export class ThemenComponent implements OnInit {
   }
 
   async openModal(theme: Theme | undefined) {
-    //add config to dialog
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data! = theme;
@@ -34,8 +33,6 @@ export class ThemenComponent implements OnInit {
     }).catch((err: any) => {
       this.error = err;
     });
-    
-
   }
 }
 

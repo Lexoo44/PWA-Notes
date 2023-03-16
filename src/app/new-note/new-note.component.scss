@@ -1,0 +1,35 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 2%;
+    width: 90%;
+
+}
+
+.mat-raised-button {
+    width: 32%;
+}
+
+.new {
+    .mat-raised-button {
+        width: 48%;
+    }
+}
+
+
+.themes {
+    display: flex;
+    justify-content: space-between;
+
+    .mat-form-field {
+        width: 100%;
+    }
+}

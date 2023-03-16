@@ -1,8 +1,37 @@
-<form style="margin: 5%;" fxLayout="column" [formGroup]="noteForm" (ngSubmit)="newNote()" autocomplete="off">
-    <mat-form-field appearance="legacy">
-        <mat-label>Themenbeschreibung</mat-label>
-        <input matInput type="text" name="" id="">
+<form *ngIf="noteForm" class="form" fxLayout="column" [formGroup]="noteForm" autocomplete="off">
+    <mat-form-field appearance="legacy" fxFlex>
+        <mat-label>Titel</mat-label>
+        <input matInput type="text" formControlName="title">
         <mat-error *ngIf="errorMessage">errorMessage</mat-error>
     </mat-form-field>
-    <button mat-button type="submit">Hinzufügen</button>
+    <div class="themes">
+        <mat-form-field appearance="legacy">
+            <mat-label>Themen</mat-label>
+            <mat-select formControlName="theme">
+                <mat-option *ngFor="let theme of themes" [value]="theme.description">{{theme.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-mini-fab color="accent" type="button" (click)="openModal()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div>
+        <div matLine><span>Erstellt {{getNoteDate()}} </span>
+            <span *ngIf="note.modificationDate == 0 || note.modificationDate == undefined">Geändert: Nicht
+                definiert</span>
+            <span *ngIf="note.modificationDate != 0 && note.modificationDate.toLocaleString() != undefined">Geändert
+                {{getNoteModDate(this.note)}}</span>
+        </div>
+    </div>
+    <mat-form-field appearance="outline">
+        <mat-label>Text</mat-label>
+        <textarea formControlName="text" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="20"
+            cdkAutosizeMaxRows="20"></textarea>
+    </mat-form-field>   
+    <div class="buttons" [ngClass]="{'new': isNewNote}">
+        <button *ngIf="!isNewNote" mat-raised-button (click)="updateNote()">Ändern</button>
+        <button *ngIf="isNewNote" mat-raised-button (click)="newNote()">Hinzufügen</button>
+        <button mat-raised-button (click)="back()">Zurück</button>
+        <button *ngIf="!isNewNote" mat-raised-button (click)="deleteNote()">Löschen</button>
+    </div>
 </form>

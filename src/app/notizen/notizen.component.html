@@ -5,7 +5,7 @@
     <div matLine><span>Erstellt {{getNoteDate(note)}} </span>
       <span *ngIf="note.modificationDate == 0 || note.modificationDate == undefined">Geändert: Nicht definiert</span>
       <span *ngIf="note.modificationDate != 0 && note.modificationDate != undefined">Geändert
-        {{note.modificationDate}}</span>
+        {{getNoteModDate(this.note)}}</span>
     </div>
     <p matLine>{{note.text}}</p>
     <mat-divider></mat-divider>

@@ -12,15 +12,16 @@ import { Note } from '../shared/note';
 })
 export class NotizenComponent implements OnInit {
   notes: Note[] = [];
-  sortorder: string = '';
+  sortOrder: string = '';
 
   constructor(private dbService: DbService, private route: ActivatedRoute, private router: Router,/* private dialog: MatDialog*/) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.sortorder = params.sortOrder;
-      this.dbService.getNotesByOrder(this.sortorder).then(notes => this.notes = notes).catch(err => console.log(err));
+      this.sortOrder = params.sortOrder;
+      this.dbService.getNotesByOrder(this.sortOrder).then(notes => this.notes = notes).catch(err => console.log(err));
+
     });
   }
 
@@ -28,24 +29,28 @@ export class NotizenComponent implements OnInit {
     return new Date(note.creationDate).toLocaleString();
   }
 
+  getNoteModDate(note: Note){
+    return new Date(note.modificationDate).toLocaleString();
+  }
+
   handleNewNote() {
-    this.router.navigate(['/note', 'new']);
+    this.router.navigate(['new']);
   }
 
   handleNoteSelected(note: Note) {
-    this.router.navigate(['/note', this.sortorder, note.id]);
+    this.router.navigate(['edit', note.id]);
   }
 
-/*
-  async openModal(note: Note | undefined) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data! = note;
-    dialogConfig.width = '95%';
-    dialogConfig.height = '100%';
-    const dialogRef = this.dialog.open(NewNoteComponent, dialogConfig);
-    const data = await dialogRef.afterClosed().toPromise();
-    this.dbService.getAllNotes().then(notes => this.notes = notes).catch(err => console.log(err));
-  }
-  */
+  /*
+    async openModal(note: Note | undefined) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.data! = note;
+      dialogConfig.width = '95%';
+      dialogConfig.height = '100%';
+      const dialogRef = this.dialog.open(NewNoteComponent, dialogConfig);
+      const data = await dialogRef.afterClosed().toPromise();
+      this.dbService.getAllNotes().then(notes => this.notes = notes).catch(err => console.log(err));
+    }
+    */
 }
