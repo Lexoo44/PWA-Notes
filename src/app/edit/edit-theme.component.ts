@@ -3,7 +3,8 @@ import { Theme } from '../shared/theme';
 import { Note } from '../shared/note';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DbService } from '../shared/dbService';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThemeValidator } from '../shared/themeValidator';
 @Component({
   selector: 'no-edit-theme',
   templateUrl: './edit-theme.component.html',
@@ -14,10 +15,14 @@ export class EditThemeComponent implements OnInit {
 
   item: any = this.data;
   errorMessage: string = '';
+  themeForm!: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Theme | Note, private dbService: DbService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Theme | Note, private dbService: DbService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.themeForm = this.fb.group({
+    description: [this.item?.description, [Validators.required, /*ThemeValidator.themeExists(this.dbService) */]],
+    })
   }
 
   isTheme(): boolean {

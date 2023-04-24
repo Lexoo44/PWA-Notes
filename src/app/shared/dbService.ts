@@ -81,7 +81,6 @@ export class DbService extends Dexie {
             .where('theme.description')
             .equals(description)
             .sortBy('title');
-        console.log(respnse);
         return respnse;
     }
     async addTheme(theme: Theme) {

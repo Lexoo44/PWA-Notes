@@ -2,7 +2,7 @@
     <mat-form-field appearance="legacy" fxFlex>
         <mat-label>Titel</mat-label>
         <input matInput type="text" formControlName="title">
-        <mat-error *ngIf="errorMessage">errorMessage</mat-error>
+        <mat-error *ngIf="noteForm.get('title')?.hasError('required')">Titel muss eingegeben werden</mat-error>
     </mat-form-field>
     <div class="themes">
         <mat-form-field appearance="legacy">
@@ -10,6 +10,7 @@
             <mat-select formControlName="theme">
                 <mat-option *ngFor="let theme of themes" [value]="theme.description">{{theme.description}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="noteForm.get('theme')?.hasError('required')">Ein Thema muss ausgewählt werden</mat-error>
         </mat-form-field>
         <button mat-mini-fab color="accent" type="button" (click)="openModal()">
             <mat-icon>add</mat-icon>
@@ -25,12 +26,15 @@
     </div>
     <mat-form-field appearance="outline">
         <mat-label>Text</mat-label>
-        <textarea formControlName="text" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="20"
-            cdkAutosizeMaxRows="20"></textarea>
-    </mat-form-field>   
+        <textarea formControlName="text" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="20" cdkAutosizeMaxRows="20"></textarea>
+        <mat-error *ngIf="noteForm.get('text')?.hasError('required')">Text muss eingegeben werden</mat-error>
+    </mat-form-field>
     <div class="buttons" [ngClass]="{'new': isNewNote}">
-        <button *ngIf="!isNewNote" mat-raised-button (click)="updateNote()">Ändern</button>
-        <button *ngIf="isNewNote" mat-raised-button (click)="newNote()">Hinzufügen</button>
+        <button *ngIf="!isNewNote" mat-raised-button (click)="updateNote()"
+            disabled={{noteForm.invalid}}>Ändern</button>
+        <button *ngIf="isNewNote" mat-raised-button (click)="newNote()"
+            disabled={{noteForm.invalid}}>Hinzufügen</button>
         <button mat-raised-button (click)="back()">Zurück</button>
         <button *ngIf="!isNewNote" mat-raised-button (click)="deleteNote()">Löschen</button>
     </div>

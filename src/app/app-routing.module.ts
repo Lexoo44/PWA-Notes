@@ -7,9 +7,9 @@ import { ThemenComponent } from './themen/themen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/title', pathMatch: 'full' },
+  { path: 'edit/:id', component: NewNoteComponent },
   { path: 'themen', component: ThemenComponent },
   { path: 'new', component: NewNoteComponent },
-  { path: 'edit/:id', component: NewNoteComponent },
   {
     path: '', component: NavigationComponent, children:
     [
